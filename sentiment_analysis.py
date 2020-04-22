@@ -5,8 +5,7 @@ positive_list = positive.collect()
 negative_list = negative.collect()
 
 #messages_trump = remove_tags.filter(lambda x: x[18] == 'Donald J. Trump for President, Inc.')
-
-
+#p = remove_tags.filter(lambda x: x[18] == "Dan O'Hare for Maryland, Torrez Wise, Treasurer")
 
 def mapper(line):
     return line[4]
@@ -43,12 +42,13 @@ def posOrneg(line):
             pos += 1
         if word in negative_list:
             neg += 1
+    score = pos - neg
     if pos > neg:
-        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], "positive"
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], score, "positive"
     if pos < neg:
-        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], "negative"
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], score, "negative"
     else:
-        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], "neutral"
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], score, "neutral"
         
         
         
@@ -56,12 +56,12 @@ def posOrneg(line):
 total_sent = remove_tags.map(removeStopWords).map(posOrneg)
 
 def filter_rdd(line):
-    return line[4], line[19], line[20]
+    return line[4], line[19], line[20], line[21]
        
-total_sent_df = total_sent.map(filter_rdd).toDF().selectExpr("_1 as message", "_2 as paid_for_by", "_3 as sentiment")
+total_sent_df = total_sent.map(filter_rdd).toDF().selectExpr("_1 as message", "_2 as paid_for_by", "_3 as score", "_4 as sentiment")
 total_sent_df.createOrReplaceTempView("sent")
 query = sqlContext.sql("select paid_for_by, sentiment, count(sentiment) cnt from sent group by paid_for_by, sentiment")
-query.toPandas().to_csv('total_sentiment.csv')
+#query.toPandas().to_csv('total_sentiment.csv')
 
 
 

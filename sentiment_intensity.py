@@ -19,7 +19,7 @@ def posOrneg(line):
     
 
 
-total_sent = remove_tags.map(posOrneg)
+total_sent = target.map(posOrneg)
 
 def filter_rdd(line):
     return line[4], line[18], line[20], line[21], line[22], line[23], line[24]

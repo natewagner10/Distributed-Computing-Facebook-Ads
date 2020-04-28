@@ -12,7 +12,7 @@ def mapper(line):
     
 #messages = messages_trump.map(mapper)
 
-
+from nltk.corpus import stopwords
 import nltk
 nltk.download('stopwords')
 stop_words = stopwords.words("english")

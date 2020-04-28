@@ -1,14 +1,14 @@
-positive = sc.textFile("/home/nate/positive-and-negative-words/positive-words.txt")
-negative = sc.textFile("/home/nate/positive-and-negative-words/negative-words.txt")
+#positive = sc.textFile("/home/nate/positive-and-negative-words/positive-words.txt")
+#negative = sc.textFile("/home/nate/positive-and-negative-words/negative-words.txt")
 
-positive_list = positive.collect()
-negative_list = negative.collect()
+#positive_list = positive.collect()
+#negative_list = negative.collect()
 
 #messages_trump = remove_tags.filter(lambda x: x[18] == 'Donald J. Trump for President, Inc.')
 #p = remove_tags.filter(lambda x: x[18] == "Dan O'Hare for Maryland, Torrez Wise, Treasurer")
 
-def mapper(line):
-    return line[4]
+#def mapper(line):
+#    return line[4]
     
 #messages = messages_trump.map(mapper)
 
@@ -31,7 +31,7 @@ def removeStopWords(line):
     return line[0], line[1], line[2], line[3], line[4], clean, line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19]  
 
 
-messages_clean = messages.map(removeStopWords)
+messages_clean = target2.map(removeStopWords)
 
 
 def posOrneg(line):

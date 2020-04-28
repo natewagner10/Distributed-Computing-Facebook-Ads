@@ -52,11 +52,16 @@ def classify_immigrant(line):
                 cnt_health += 1
             if word in econ_wb:
                 cnt_econ += 1
+        # list of the number of occurrences 
         counts = [cnt_imm, cnt_health, cnt_econ]
+        # list of the classes
         class_names = ["immigration", "healthcare", "economic"] 
+        # get the index location of the max element
         da_max = counts.index(max(counts))
+        # testing if any of the counts equal each other, or all are zero
         if len(set(counts)) == len(counts) or counts.count(0) == len(counts):
             return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other' 
+        # if not, return the class of the max
         else:
             return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], class_names[da_max] 
     except:

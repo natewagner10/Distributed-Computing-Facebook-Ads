@@ -29,6 +29,7 @@ health_wb = [ 'pre existing conditions', 'drug price', 'drug prices',
              'drug price regulation', 'live saving drug', 'life saving drugs', 
              'healthcare', 'mental health', 'obamacare', 'medicaid', 'single payer healthcare', 
              'marijuna', 'safe haven', 'va privatization' ]
+
 econ_wb = ['globalization', 'international relations', 'trade', 'finance',
            'financial crisis', 'bond market', 'commodity markets', 'financial contagion',
            'financial market', 'securities', 'security markets', 'share market',
@@ -51,17 +52,13 @@ def classify_immigrant(line):
                 cnt_health += 1
             if word in econ_wb:
                 cnt_econ += 1
-        if cnt_imm != 0 or cnt_health != 0 or cnt_econ != 0:
-            if cnt_imm > cnt_health and cnt_imm > cnt_econ:
-                return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'immigration'    
-            elif cnt_health > cnt_imm and cnt_health > cnt_econ:
-                return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'healthcare'
-            elif cnt_econ > cnt_imm and cnt_econ > cnt_health:
-                return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'economic'
-            else:
-                return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other'
+        counts = [cnt_imm, cnt_health, cnt_econ]
+        class_names = ["immigration", "healthcare", "economic"] 
+        da_max = counts.index(max(counts))
+        if len(set(counts)) == len(counts) or counts.count(0) == len(counts):
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other' 
         else:
-            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other'
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], class_names[da_max] 
     except:
         return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other'
 

@@ -1,6 +1,6 @@
 from nltk.corpus import stopwords
 import nltk
-nltk.download('stopwords')
+#nltk.download('stopwords')
 stop_words = stopwords.words("english")
 
 def removeStopWords(line):
@@ -52,12 +52,38 @@ envior_wb = ['climate change', 'fracking', 'alternative energy', 'oil drilling',
            'natural resource', 'radioactive', 'radioactive waste', 'nuclear energy', 'acid rain', 'endangered', 
            'endangered species', 'light pollution', 'noise pollution', 'urban sprawl', 'litter', 'littering', 'landfill']
 
+social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'same sex marriage', 'straight', 'prolife', 
+             'pro choice', 'rape', 'abortion', 'sex education', 'birth control', 'marriage','marriages', 
+             'civil unions', 'planned parenthood', 'discrimination', 'gender', 'identity', 'beliefs', 'equality',
+             'statutory', 'domestic', 'violence', 'sex', 'spouse', 'contraception', 'birth control', 'abstinence',
+             'transgende', 'hormone', 'hormones', 'compete', 'biological', 'athlete', 'athletes', 'death penalty',
+             'punishment', 'convict', 'convicted' , 'prison', 'life in prison', 'women combat', 'sexual assault',
+             'sexually assaulted', 'combat roles', 'confederate', 'flag', 'historical monuments', 'racism', 'separatism',
+             'assisted suicide', 'euthanasia', 'terminal illness', 'diversity', 'workplace', 'safe space', 'safe spaces', 
+             'trigger warnings', 'trigger warning', 'niqab', 'hijab', 'church',  'religion', 'religions' ]
+
+foreign_wb = 'mandatory military service','united nations','iran','foreign elections','israel boycott','soleimani',
+              'torture','nato','israe','miltary spending','syrian refugees','foreign aid','yemen','drones',
+              'north korean military strikes','terrorism','afghanistan','isis ground troops',
+              'Hong Kong fugitive extradition','war on isis','ukraine','nsa surveillance','cuba',
+              'russian airstrikes in syria', 'india arms','jerusalem','f 35']
+                
+crim_wb = ['police body cameras' , 'private prisons', 'solitary confinement for juveniles', 'criminal voting rights', 
+           'mandatory minimum prison sentences', 'drug trafficking penalties', 'prison overcrowding', 'traffickers', 'trafficking']
+
+elec_wb = [ 'foreign lobbying', 'electoral college', 'campaign finance', 'voter fraud', 'right of foreigners to vote',
+              'lobbyists', 'minimum voting age', 'candidate transparency', 'criminal politicians']
+
 def classify_immigrant(line):
     try:
         cnt_imm = 0
         cnt_health = 0
         cnt_econ = 0
         cnt_envior = 0
+        cnt_social = 0
+        cnt_foreign = 0
+        cnt_crim = 0
+        cnt_elec = 0
         for word in line[5]:
             if word in imm_wb:
                 cnt_imm += 1
@@ -67,10 +93,18 @@ def classify_immigrant(line):
                 cnt_econ += 1
             if word in envior_wb:
                 cnt_envior += 1
+            if word in social_wb:
+                cnt_social += 1
+            if word in foreign_wb:
+                cnt_foreign += 1
+            if word in crim_wb:
+                cnt_crim += 1
+            if word in elec_wb:
+                cnt_elec += 1
         # list of the number of occurrences 
-        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior]
+        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec]
         # list of the classes
-        class_names = ["immigration", "healthcare", "economic", "environment"] 
+        class_names = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral"] 
         # get the index location of the max element
         da_max = counts.index(max(counts))
         # testing if any of the counts equal each other, or all are zero
@@ -86,6 +120,18 @@ def classify_immigrant(line):
 data_w_imm = messages_clean.map(classify_immigrant)
 data_w_imm.filter(lambda x: x[21] == 'immigration').count()
 
+def reducer(line):
+    return line[4], line[19], line[21]
+
+class_df = data_w_imm.map(reducer).toDF().selectExpr("_1 as message", "_2 as paid_for_by", "_3 as category")
+class_df.createOrReplaceTempView("cat")
+query = sqlContext.sql("select category, count(category) cnt from cat group by category order by cnt desc")
+
+
+
+
+cats = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral"]
+the_others = data_w_imm.filter(lambda x: x[21] not in cats)
 
 
 

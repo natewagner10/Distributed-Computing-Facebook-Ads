@@ -23,12 +23,12 @@ def removeStopWords(line):
 messages_clean = remove_tags.map(removeStopWords)
 
 imm_wb = ["immigration", "muslim", "border", "wall", "entering the country", "aliens", "deporting", 
-"sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa"]
+"sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa", "daca"]
 
 health_wb = [ 'pre existing conditions', 'drug price', 'drug prices', 
              'drug price regulation', 'live saving drug', 'life saving drugs', 
              'healthcare', 'mental health', 'obamacare', 'medicaid', 'single payer healthcare', 
-             'marijuna', 'safe haven', 'va privatization' ]
+             'marijuna', 'safe haven', 'va privatization', 'health care']
 
 econ_wb = ['globalization', 'international relations', 'trade', 'finance',
            'financial crisis', 'bond market', 'commodity markets', 'financial contagion',
@@ -62,7 +62,7 @@ social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'same sex marri
              'assisted suicide', 'euthanasia', 'terminal illness', 'diversity', 'workplace', 'safe space', 'safe spaces', 
              'trigger warnings', 'trigger warning', 'niqab', 'hijab', 'church',  'religion', 'religions' ]
 
-foreign_wb = 'mandatory military service','united nations','iran','foreign elections','israel boycott','soleimani',
+foreign_wb = ['mandatory military service','united nations','iran','foreign elections','israel boycott','soleimani',
               'torture','nato','israe','miltary spending','syrian refugees','foreign aid','yemen','drones',
               'north korean military strikes','terrorism','afghanistan','isis ground troops',
               'Hong Kong fugitive extradition','war on isis','ukraine','nsa surveillance','cuba',
@@ -71,8 +71,13 @@ foreign_wb = 'mandatory military service','united nations','iran','foreign elect
 crim_wb = ['police body cameras' , 'private prisons', 'solitary confinement for juveniles', 'criminal voting rights', 
            'mandatory minimum prison sentences', 'drug trafficking penalties', 'prison overcrowding', 'traffickers', 'trafficking']
 
-elec_wb = [ 'foreign lobbying', 'electoral college', 'campaign finance', 'voter fraud', 'right of foreigners to vote',
+elec_wb = ['foreign lobbying', 'electoral college', 'campaign finance', 'voter fraud', 'right of foreigners to vote',
               'lobbyists', 'minimum voting age', 'candidate transparency', 'criminal politicians']
+
+sci_wb = ['vaccinations', 'gmo', 'nuclear energy', 'space exploration', 'engineered foods', 'vaccinated', 'space travel']
+
+educ_wb = ['student loan', 'student loans', 'free college', 'student debt', 'tuition',
+           'common core', 'pre k', 'preschool', 'charter school', 'charter schools', 'school truancy']
 
 def classify_immigrant(line):
     try:
@@ -84,6 +89,8 @@ def classify_immigrant(line):
         cnt_foreign = 0
         cnt_crim = 0
         cnt_elec = 0
+        cnt_sci = 0
+        cnt_educ = 0
         for word in line[5]:
             if word in imm_wb:
                 cnt_imm += 1
@@ -101,15 +108,21 @@ def classify_immigrant(line):
                 cnt_crim += 1
             if word in elec_wb:
                 cnt_elec += 1
+            if word in sci_wb:
+                cnt_sci += 1
+            if word in educ_wb:
+                cnt_educ += 1
         # list of the number of occurrences 
-        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec]
+        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec, cnt_sci, cnt_educ]
         # list of the classes
-        class_names = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral"] 
+        class_names = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education"] 
         # get the index location of the max element
         da_max = counts.index(max(counts))
         # testing if any of the counts equal each other, or all are zero
-        if len(set(counts)) == len(counts) or counts.count(0) == len(counts):
+        if counts.count(0) == len(counts):
             return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other' 
+        #if len(set(counts)) == len(counts) and counts.count(0) != len(counts):
+        #    return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'political' 
         # if not, return the class of the max
         else:
             return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], class_names[da_max] 
@@ -118,7 +131,7 @@ def classify_immigrant(line):
 
 
 data_w_imm = messages_clean.map(classify_immigrant)
-data_w_imm.filter(lambda x: x[21] == 'immigration').count()
+#data_w_imm.filter(lambda x: x[21] == 'immigration').count()
 
 def reducer(line):
     return line[4], line[19], line[21]
@@ -130,7 +143,7 @@ query = sqlContext.sql("select category, count(category) cnt from cat group by c
 
 
 
-cats = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral"]
+cats = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education"] 
 the_others = data_w_imm.filter(lambda x: x[21] not in cats)
 
 

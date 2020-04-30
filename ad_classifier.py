@@ -67,8 +67,8 @@ from pyspark.ml.feature import CountVectorizer
 soc_econ_df = soc_econ.toDF().selectExpr("_1 as message", "_2 as category")
 
 from pyspark.ml.feature import Word2Vec
-word2Vec = Word2Vec(vectorSize=17530, minCount=0, inputCol="message", outputCol="features")
-model = word2Vec.fit(soc_econ_df)
+wordVec = Word2Vec(vectorSize=17530, minCount=0, inputCol="message", outputCol="features")
+model = wordVec.fit(soc_econ_df)
 result = model.transform(soc_econ_df)
 
 

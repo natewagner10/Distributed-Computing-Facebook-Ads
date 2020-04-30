@@ -22,8 +22,9 @@ def removeStopWords(line):
 
 messages_clean = remove_tags.map(removeStopWords)
 
-imm_wb = ["immigration", "muslim", "border", "wall", "entering the country", "aliens", "deporting", 
-"sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa", "daca"]
+imm_wb = ["immigration", "muslim", "border", "entering the country", "aliens", "deporting", 
+"sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa", "daca", "refugee",
+         "refugees"]
 
 health_wb = [ 'pre existing conditions', 'drug price', 'drug prices', 
              'drug price regulation', 'live saving drug', 'life saving drugs', 
@@ -69,7 +70,7 @@ foreign_wb = ['mandatory military service','united nations','iran','foreign elec
               'russian airstrikes in syria', 'india arms','jerusalem','f 35']
                 
 crim_wb = ['police body cameras' , 'private prisons', 'solitary confinement for juveniles', 'criminal voting rights', 
-           'mandatory minimum prison sentences', 'drug trafficking penalties', 'prison overcrowding', 'traffickers', 'trafficking']
+           'mandatory minimum prison sentences', 'drug trafficking penalties', 'prison overcrowding', 'traffickers', 'trafficking', 'criminal']
 
 elec_wb = ['foreign lobbying', 'electoral college', 'campaign finance', 'voter fraud', 'right of foreigners to vote',
               'lobbyists', 'minimum voting age', 'candidate transparency', 'criminal politicians']
@@ -77,7 +78,16 @@ elec_wb = ['foreign lobbying', 'electoral college', 'campaign finance', 'voter f
 sci_wb = ['vaccinations', 'gmo', 'nuclear energy', 'space exploration', 'engineered foods', 'vaccinated', 'space travel']
 
 educ_wb = ['student loan', 'student loans', 'free college', 'student debt', 'tuition',
-           'common core', 'pre k', 'preschool', 'charter school', 'charter schools', 'school truancy']
+           'common core', 'pre k', 'preschool', 'charter school', 'charter schools', 'school truancy', 'school']
+
+dom_wb = ['gun control', 'purchasing a gun', 'impeachment', 'impeachment', 'armed teacher', 'armed teachers', 'gerrymandering', 
+          'redraw congressional districts', 'redrawing of congressional districts', 'net neutrality', 'drug policy', 
+          'drug policies', 'term limit', 'term limits', 'nsa domestic surveillance', 'citizen phone calls', 
+          'citizens phone calls', 'muslim surveillance', 'no fly list', 'whisletblower', 'whistleblowers', 
+          'gun violence', 'gun liability', 'gun purchase', 'gun purchasing', 'social media regulation', 
+          'social media regulators', 'patriot act', 'affirmative action', 'supreme court reform', 'eminent domain', 
+          'seize private property', 'social security', 'flag burning', 'burn flag', 'political ads', 'political advertising',
+          'snowden', 'air force one', 'nra']
 
 def classify_immigrant(line):
     try:
@@ -91,6 +101,7 @@ def classify_immigrant(line):
         cnt_elec = 0
         cnt_sci = 0
         cnt_educ = 0
+        cnt_dom = 0
         for word in line[5]:
             if word in imm_wb:
                 cnt_imm += 1
@@ -112,10 +123,12 @@ def classify_immigrant(line):
                 cnt_sci += 1
             if word in educ_wb:
                 cnt_educ += 1
+            if word in dom_wb:
+                cnt_dom += 1
         # list of the number of occurrences 
-        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec, cnt_sci, cnt_educ]
+        counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec, cnt_sci, cnt_educ, cnt_dom]
         # list of the classes
-        class_names = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education"] 
+        class_names = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education", "domestic"] 
         # get the index location of the max element
         da_max = counts.index(max(counts))
         # testing if any of the counts equal each other, or all are zero

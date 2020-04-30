@@ -29,7 +29,7 @@ imm_wb = ["immigration", "muslim", "border", "entering the country", "aliens", "
 health_wb = [ 'pre existing conditions', 'drug price', 'drug prices', 
              'drug price regulation', 'live saving drug', 'life saving drugs', 
              'healthcare', 'mental health', 'obamacare', 'medicaid', 'single payer healthcare', 
-             'marijuna', 'safe haven', 'va privatization', 'health care']
+             'marijuna', 'safe haven', 'va privatization', 'health care', 'health']
 
 econ_wb = ['globalization', 'international relations', 'trade', 'finance',
            'financial crisis', 'bond market', 'commodity markets', 'financial contagion',
@@ -42,7 +42,7 @@ econ_wb = ['globalization', 'international relations', 'trade', 'finance',
            'Business Administration', 'business Economics', 'marketing',  'capitalism', 'socialism', 
            'free market', 'real estate', 'real estate markets', 'mass transit', 'transit', 
            'transportation', 'universal basic income', 'overtime pay', 'economic stimulus', 
-           'federal reserve', 'domestic jobs', 'tariffs', 'tariff', 'property taxes']
+           'federal reserve', 'domestic jobs', 'tariffs', 'tariff', 'property taxes', 'economy']
 
 envior_wb = ['climate change', 'fracking', 'alternative energy', 'oil drilling', 'environmental', 
            'environment', 'EPA', 'epa', 'environmental protection agency', 'pollution', 'global warming', 
@@ -156,7 +156,7 @@ query = sqlContext.sql("select category, count(category) cnt from cat group by c
 
 
 
-cats = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education"] 
+cats = ["immigration", "healthcare", "economic", "environment", "social", "foreign", "criminal", "electoral", "science", "education", "domestic"] 
 the_others = data_w_imm.filter(lambda x: x[21] not in cats)
 
 

@@ -20,7 +20,7 @@ def removeStopWords(line):
     except:
         return line[0], line[1], line[2], line[3], line[4], "didnt work", line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19]  
 
-messages_clean = remove_tags.map(removeStopWords)
+messages_clean = target.map(removeStopWords)
 
 imm_wb = ["immigration", "muslim", "border", "entering the country", "aliens", "deporting", 
 "sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa", "daca", "refugee",
@@ -89,6 +89,8 @@ dom_wb = ['gun control', 'purchasing a gun', 'impeachment', 'impeachment', 'arme
           'seize private property', 'social security', 'flag burning', 'burn flag', 'political ads', 'political advertising',
           'snowden', 'air force one', 'nra']
 
+#trump_wb = ['trump']
+
 def classify_immigrant(line):
     try:
         cnt_imm = 0
@@ -102,6 +104,7 @@ def classify_immigrant(line):
         cnt_sci = 0
         cnt_educ = 0
         cnt_dom = 0
+        #cnt_trump = 0
         for word in line[5]:
             if word in imm_wb:
                 cnt_imm += 1
@@ -125,6 +128,8 @@ def classify_immigrant(line):
                 cnt_educ += 1
             if word in dom_wb:
                 cnt_dom += 1
+            #if word in trump_wb:
+            #    cnt_trump += 1
         # list of the number of occurrences 
         counts = [cnt_imm, cnt_health, cnt_econ, cnt_envior, cnt_social, cnt_foreign, cnt_crim, cnt_elec, cnt_sci, cnt_educ, cnt_dom]
         # list of the classes
@@ -142,8 +147,9 @@ def classify_immigrant(line):
     except:
         return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], 'other'
 
-
+############ feed this into classify_ads.py ###############
 data_w_imm = messages_clean.map(classify_immigrant)
+############ feed this into classify_ads.py ###############
 #data_w_imm.filter(lambda x: x[21] == 'immigration').count()
 
 def reducer(line):

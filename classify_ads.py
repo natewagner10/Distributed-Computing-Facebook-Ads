@@ -22,92 +22,101 @@ def removeStopWords(line):
 
 messages_clean = target.map(removeStopWords)
 
-imm_wb = ["immigration", "muslim", "border", "entering the country", "aliens", "deporting", 
-"sanctuary", "illegal immigrants", "assimilation", "border security", "citizenship", "visas", "visa", "daca", "refugee",
-         "refugees"]
+imm_wb = ["immigration", "muslim", "border", "entering", "country", "aliens", "alien", "deporting", "deported", "deport" 
+          "sanctuary", "illegal", "immigrants", "assimilation", "border", "security",
+          "citizenship", "visas", "visa", "daca", "refugee","refugees"]
 
-health_wb = [ 'pre existing conditions', 'drug price', 'drug prices', 'drug price regulation', 
-             'live saving drug', 'life saving drugs','healthcare', 'mental health', 'obamacare', 
-             'medicaid', 'single payer healthcare', 'marijuna', 'safe haven', 'va privatization', 
-             'health care', 'health insurance', 'health insurers', 'drug patents', 'prescriptions',
-             'prescription drug', 'prescription drugs', 'medicine', 'life-saving drugs', 'mental healthcare',
-             'pharmaceutical','pharmaceuticals', 'health treatment', 'affordable care', 'patient protection',
-             'medical coverage', 'medical treatment', 'health services', 'health service', 'medical insurance', 
-             'health coverage', 'va healthcare', 'veteran healthcare', 'uninsured', 'medicare', 'health provider',
-             'health providers', 'out-of-pocket costs', 'medical bill', 'medical bills', 'drug-pricing', 'drug-price', 'care']
+health_wb = [ 'existing', 'conditions', 'drug', 'price', 'drug', 'prices', 'drug', 'price', 'regulation', 
+             'live', 'saving', 'drug', 'life', 'saving', 'drugs', 'healthcare', 'mental', 'health', 'obamacare',
+             'medicaid', 'single', 'payer', 'healthcare', 'marijuna', 'safe', 'haven', 'va', 'privatization', 
+             'health', 'care', 'health', 'insurance', 'health', 'insurers', 'drug', 'patents', 'prescriptions',
+             'prescription', 'drug', 'prescription', 'drugs', 'medicine', 'life-saving', 'drugs', 'mental',
+             'healthcare', 'pharmaceutical', 'pharmaceuticals', 'health', 'treatment', 'affordable', 'care', 
+             'patient', 'protection', 'medical', 'coverage', 'medical', 'treatment', 'health', 'services', 
+             'health', 'service', 'medical', 'insurance', 'health', 'coverage', 'va', 'healthcare', 'veteran',
+             'healthcare', 'uninsured', 'medicare', 'health', 'provider', 'health', 'providers', 'out-of-pocket',
+             'costs', 'medical', 'bill', 'medical', 'bills', 'drug-pricing', 'drug-price', 'care']
 
-econ_wb = ['globalization', 'international relations', 'trade', 'finance',
-           'financial crisis', 'bond market', 'commodity markets', 'financial contagion',
-           'financial market', 'securities', 'security markets', 'share market',
-           'stock market', 'taxation', 'tax', 'taxes', 'raise taxes', 'anti poverty',
-           'poverty', 'welfare', 'employment', 'employment creation', 'unemployment',
-           'unemployment rate', 'hires', 'job creation', 'wage', 'minimum wage',
-           'paid sick leave', 'corporate tax', 'capital gains', 'capital gains tax',
-           'compensation', 'labor costs', 'wages', 'wage data', 'union', 'nonunion', 'accounting',
-           'Business Administration', 'business Economics', 'marketing',  'capitalism', 'socialism', 
-           'free market', 'real estate', 'real estate markets', 'mass transit', 'transit', 
-           'transportation', 'universal basic income', 'overtime pay', 'economic stimulus', 
-           'federal reserve', 'domestic jobs', 'tariffs', 'tariff', 'property taxes', 'economy']
+econ_wb = ['globalization', 'international', 'relations', 'trade', 'finance', 'financial', 'crisis', 'bond', 'market', 
+           'commodity', 'markets', 'financial', 'contagion', 'financial', 'market', 'securities', 'security', 'markets',
+           'share', 'market', 'stock', 'market', 'taxation', 'tax', 'taxes', 'raise', 'taxes', 'anti', 'poverty', 'poverty', 
+           'welfare', 'employment', 'employment', 'creation', 'unemployment', 'unemployment', 'rate', 'hires', 'job',
+           'creation', 'wage', 'minimum', 'wage', 'paid', 'sick', 'leave', 'corporate', 'tax', 'capital', 'gains', 
+           'capital', 'gains', 'tax', 'compensation', 'labor', 'costs', 'wages', 'wage', 'data', 'union', 'nonunion', 
+           'accounting', 'Business', 'Administration', 'business', 'Economics', 'marketing', 'capitalism', 'socialism',
+           'free', 'market', 'real', 'estate', 'real', 'estate', 'markets', 'mass', 'transit', 'transit', 'transportation',
+           'universal', 'basic', 'income', 'overtime', 'pay', 'economic', 'stimulus', 'federal', 'reserve', 'domestic',
+           'jobs', 'tariffs', 'tariff', 'property', 'taxes', 'economy']
 
-envior_wb = ['climate change', 'fracking', 'alternative energy', 'oil drilling', 'environmental', 
-           'environment', 'EPA', 'epa', 'environmental protection agency', 'pollution', 'global warming', 
-           'environmental management system', 'sustainability', 'air pollution', 'energy', 
-           'overpopulation', 'deforestation', 'waste',  'environmental degradation', 'waste management', 
-           'water pollution', 'carbon footprint', 'biodiversity', 'genetic modification', 'ozone layer', 
-           'ozone layer depletion', 'mining', 'natural resource depletion', 'natural resources', 
-           'natural resource', 'radioactive', 'radioactive waste', 'nuclear energy', 'acid rain', 'endangered', 
-           'endangered species', 'light pollution', 'noise pollution', 'urban sprawl', 'litter', 'littering', 'landfill']
+envior_wb = ['green', 'new', 'deal', 'climate', 'change', 'fracking', 'alternative', 'energy', 'oil', 'drilling', 
+             'environmental', 'environment', 'EPA', 'epa', 'environmental', 'protection', 'agency', 'pollution', 
+             'global', 'warming', 'environmental', 'management', 'system', 'sustainability', 'air', 'pollution', 
+             'energy', 'overpopulation', 'deforestation', 'waste', 'environmental', 'degradation', 'waste', 'management', 
+             'water', 'pollution', 'carbon', 'footprint', 'biodiversity', 'genetic', 'modification', 'ozone', 'layer', 
+             'ozone', 'layer', 'depletion', 'mining', 'natural', 'resource', 'depletion', 'natural', 'resources', 
+             'natural', 'resource', 'radioactive', 'radioactive', 'waste', 'nuclear', 'energy', 'acid', 'rain',
+             'endangered', 'endangered', 'species', 'light', 'pollution', 'noise', 'pollution', 'urban', 'sprawl', 
+             'litter', 'littering', 'landfill']
 
-social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'same sex marriage', 'straight', 'prolife', 
-             'pro choice', 'rape', 'abortion', 'sex education', 'birth control', 'marriage','marriages', 
-             'civil unions', 'planned parenthood', 'discrimination', 'gender', 'identity', 'beliefs', 'equality',
-             'statutory', 'domestic', 'violence', 'sex', 'spouse', 'contraception', 'birth control', 'abstinence',
-             'transgende', 'hormone', 'hormones', 'compete', 'biological', 'athlete', 'athletes', 'death penalty',
-             'punishment', 'convict', 'convicted' , 'prison', 'life in prison', 'women combat', 'sexual assault',
-             'sexually assaulted', 'combat roles', 'confederate', 'flag', 'historical monuments', 'racism', 'separatism',
-             'assisted suicide', 'euthanasia', 'terminal illness', 'diversity', 'workplace', 'safe space', 'safe spaces', 
-             'trigger warnings', 'trigger warning', 'niqab', 'hijab', 'church',  'religion', 'religions' ]
+social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'same', 'sex', 'marriage', 'straight', 'prolife',
+             'pro', 'choice', 'rape', 'abortion', 'sex', 'education', 'birth', 'control', 'marriage', 'marriages',
+             'civil', 'unions', 'planned', 'parenthood', 'discrimination', 'gender', 'identity', 'beliefs', 
+             'equality', 'statutory', 'domestic', 'violence', 'sex', 'spouse', 'contraception', 'birth', 'control',
+             'abstinence', 'transgende', 'hormone', 'hormones', 'compete', 'biological', 'athlete', 'athletes',
+             'death', 'penalty', 'punishment', 'convict', 'convicted', 'prison', 'life', 'in', 'prison', 'women',
+             'combat', 'sexual', 'assault', 'sexually', 'assaulted', 'combat', 'roles', 'confederate', 'flag',
+             'historical', 'monuments', 'racism', 'separatism', 'assisted', 'suicide', 'euthanasia', 'terminal',
+             'illness', 'diversity', 'workplace', 'safe', 'space', 'safe', 'spaces', 'trigger', 'warnings', 'trigger',
+             'warning', 'niqab', 'hijab', 'church', 'religion', 'religions']
 
-foreign_wb = ['mandatory military service','united nations','iran','foreign elections','israel boycott','soleimani',
-              'torture','nato','israe','miltary spending','syrian refugees','foreign aid','yemen','drones',
-              'north korean military strikes','terrorism','afghanistan','isis ground troops',
-              'Hong Kong fugitive extradition','war on isis','ukraine','nsa surveillance','cuba',
-              'russian airstrikes in syria', 'india arms','jerusalem','f 35']
+foreign_wb = ['mandatory', 'military', 'service', 'united', 'nations', 'iran', 'foreign', 'elections', 'israel',
+              'boycott', 'soleimani', 'torture', 'nato', 'israe', 'miltary', 'spending', 'syrian', 'refugees',
+              'foreign', 'aid', 'yemen', 'drones', 'north', 'korean', 'military', 'strikes', 'terrorism',
+              'afghanistan', 'isis', 'ground', 'troops', 'Hong', 'Kong', 'fugitive', 'extradition',
+              'isis', 'ukraine', 'nsa', 'surveillance', 'cuba', 'russian', 'airstrikes', 'syria',
+              'india', 'arms', 'jerusalem', 'f', '35']
                 
-crim_wb = ['police body cameras' , 'private prisons', 'solitary confinement for juveniles', 'criminal voting rights', 
-           'mandatory minimum prison sentences', 'drug trafficking penalties', 'prison overcrowding', 'traffickers', 'trafficking', 'criminal']
+crim_wb = ['police', 'body', 'cameras', 'private', 'prisons', 'solitary', 'confinement', 'for', 'juveniles',
+           'criminal', 'voting', 'rights', 'mandatory', 'minimum', 'prison', 'sentences', 'drug', 'trafficking', 
+           'penalties', 'prison', 'overcrowding', 'traffickers', 'trafficking', 'criminal']
 
-elec_wb = ['foreign lobbying', 'electoral college', 'campaign finance', 'voter fraud', 'right of foreigners to vote',
-              'lobbyists', 'minimum voting age', 'candidate transparency', 'criminal politicians']
+elec_wb = ['foreign', 'lobbying', 'electoral', 'college', 'campaign', 'finance', 'voter', 'fraud',
+           'right', 'of', 'foreigners', 'to', 'vote', 'lobbyists', 'minimum', 'voting', 'age', 
+           'candidate', 'transparency', 'criminal', 'politicians']
 
-sci_wb = ['vaccinations', 'vaccination','vaccinated', 'disease','diseases','gmo', 'nuclear energy', 
-          'space exploration', 'engineered foods', 'vaccinated', 'space travel', 'vaccines', 'food engineering', 
-          'food engineer', 'food engineered','crop', 'crops', 'patent foods', 'patent food', 'plant breeding', 
-          'genetic engineering', 'genetic engineered', 'biotechnology', 'biotech', 'crop', 'crops','breed', 
-          'breeding', 'DNA', 'biogenetic', 'DNA', 'gene', 'genes', 'epidemic', 'virus', 'renewable energy', 
-          'nuclear', 'energy', 'geothermal','wind energy', 'alternative energy', 'nuclear power', 'power plants',
-          'solar energy', 'solar power', 'wind power', 'hydroelectricity', 'alternative power', 'NASA', 'space travel',
-          'space', 'aerospace', 'space technology', 'aeronautics']
+sci_wb = ['vaccinations', 'vaccination', 'vaccinated', 'disease', 'diseases', 'gmo', 'nuclear', 
+          'energy', 'space', 'exploration', 'engineered', 'foods', 'vaccinated', 'space', 'travel', 
+          'vaccines', 'food', 'engineering', 'food', 'engineer', 'food', 'engineered', 'crop', 'crops',
+          'patent', 'foods', 'patent', 'food', 'plant', 'breeding', 'genetic', 'engineering', 'genetic', 
+          'engineered', 'biotechnology', 'biotech', 'crop', 'crops', 'breed', 'breeding', 'DNA', 
+          'biogenetic', 'DNA', 'gene', 'genes', 'epidemic', 'virus', 'renewable', 'energy', 'nuclear',
+          'energy', 'geothermal', 'wind', 'energy', 'alternative', 'energy', 'nuclear', 'power', 'power',
+          'plants', 'solar', 'energy', 'solar', 'power', 'wind', 'power', 'hydroelectricity', 'alternative',
+          'power', 'NASA', 'space', 'travel', 'space', 'aerospace', 'space', 'technology', 'aeronautics']
 
-educ_wb = ['student loan', 'student loans', 'free college', 'student debt', 'tuition', 'common core',
-           'pre k', 'preschool', 'charter school', 'charter schools', 'school truancy', 'students', 'education', 
-           'colleges', 'university', 'universities', 'scholarship', 'scholarships', 'curriculum', 'educational', 
-           'voucher system', 'teacher', 'teachers', 'professor', 'faculty', 'professors', 'school', 'schools', 
-           'kindergarten', 'academic', 'homeschooling', 'homeschool', 'academics', 'literacy', 'schooling', 
-           'classroom', 'classrooms','postgraduate', 'undergraduate', 'zoning', 'standardized testing', 'class']
+educ_wb = ['student', 'loan', 'student', 'loans', 'free', 'college', 'student', 'debt', 'tuition', 'common', 
+           'core', 'pre', 'k', 'preschool', 'charter', 'school', 'charter', 'schools', 'school', 'truancy',
+           'students', 'education', 'colleges', 'university', 'universities', 'scholarship', 'scholarships',
+           'curriculum', 'educational', 'voucher', 'system', 'teacher', 'teachers', 'professor', 'faculty', 
+           'professors', 'school', 'schools', 'kindergarten', 'academic', 'homeschooling', 'homeschool', 
+           'academics', 'literacy', 'schooling', 'classroom', 'classrooms', 'postgraduate', 'undergraduate',
+           'zoning', 'standardized', 'testing', 'class']
 
-dom_wb = ['gun control', 'purchasing a gun', 'impeachment', 'impeach', 'impeached', 'impeaching', 'armed teacher', 
-          'armed teachers', 'gerrymandering', 'redraw congressional districts', 'redrawing of congressional districts',
-          'net neutrality', 'drug policy', 'drug policies', 'term limit', 'term limits', 'nsa domestic surveillance',
-          'citizen phone calls', 'citizens phone calls', 'muslim surveillance', 'no fly list', 'whistleblower',
-          'whistleblowers', 'gun violence', 'gun liability', 'gun purchase', 'gun purchasing', 'social media regulation',
-          'social media regulators', 'patriot act', 'affirmative action', 'supreme court reform', 'eminent domain', 
-          'seize private property', 'social security', 'flag buring', 'burn flag', 'political ads', 'political advertising',
-          'snowden', 'air force one', 'guns', 'drugs', 'impeach', 'drug offenders','background check', 'background checks',
-          'weapon', 'weapons',  'redistricting', 'medicinal benefits', 'rehabilitation', 'addiction prevention', 
-          'election', 'elections', 'nsa', 'data collection', 'metadata', 'national security surveillance', 'phone calls', 
-          'track calls', 'surveillance', 'ammunition', 'no-fly list', 'firearm', 'firearms', 'misinformation', 
-          'surveillance', 'warrant', 'social program', 'social programs', 'wiretap', 'supreme court', 'retirement income']
+dom_wb = ['gun', 'control', 'purchasing', 'a', 'gun', 'impeachment', 'impeach', 'impeached', 'impeaching',
+          'armed', 'teacher', 'armed', 'teachers', 'gerrymandering', 'redraw', 'congressional', 'districts',
+          'redrawing', 'of', 'congressional', 'districts', 'net', 'neutrality', 'drug', 'policy', 'drug', 
+          'policies', 'term', 'limit', 'term', 'limits', 'nsa', 'domestic', 'surveillance', 'citizen', 'phone',
+          'calls', 'citizens', 'phone', 'calls', 'muslim', 'surveillance', 'no', 'fly', 'list', 'whistleblower',
+          'whistleblowers', 'gun', 'violence', 'gun', 'liability', 'gun', 'purchase', 'gun', 'purchasing', 
+          'social', 'media', 'regulation', 'social', 'media', 'regulators', 'patriot', 'act', 'affirmative',
+          'action', 'supreme', 'court', 'reform', 'eminent', 'domain', 'seize', 'private', 'property', 'social',
+          'security', 'flag', 'buring', 'burn', 'flag', 'political', 'ads', 'political', 'advertising', 'snowden',
+          'air', 'force', 'one', 'guns', 'drugs', 'impeach', 'drug', 'offenders', 'background', 'check', 'background', 
+          'checks', 'weapon', 'weapons', 'redistricting', 'medicinal', 'benefits', 'rehabilitation', 'addiction',
+          'prevention', 'election', 'elections', 'nsa', 'data', 'collection', 'metadata', 'national', 'security',
+          'surveillance', 'phone', 'calls', 'track', 'calls', 'surveillance', 'ammunition', 'no-fly', 'list', 
+          'firearm', 'firearms', 'misinformation', 'surveillance', 'warrant', 'social', 'program', 'social',
+          'programs', 'wiretap', 'supreme', 'court', 'retirement', 'income']
 
 
 #trump_wb = ['trump']

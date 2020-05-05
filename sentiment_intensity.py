@@ -22,18 +22,18 @@ def posOrneg(line):
 total_sent = data_w_imm.map(posOrneg)
 
 def filter_rdd(line):
-    return line[19], line[21], line[22], line[23], line[24], line[25], line[7].month, line[7].day, line[7].year
+    return line[19], line[21], line[22], line[23], line[24], line[25], line[7].month, line[7].day, line[7].year, line[13]
 
 def createSome(line):
     if line[5] == "neutral":
         if line[2] >= 0.15:
-            return line[0], line[1], line[2], line[3], line[4], "somewhat negative", line[6], line[7], line[8]
+            return line[0], line[1], line[2], line[3], line[4], "somewhat negative", line[6], line[7], line[8], line[13]
         elif line[4] >= 0.15:
-            return line[0], line[1], line[2], line[3], line[4], "somewhat positive", line[6], line[7], line[8]
+            return line[0], line[1], line[2], line[3], line[4], "somewhat positive", line[6], line[7], line[8], line[13]
         else:
-            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8]
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[13]
     else:
-        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8]
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[13]
         
 
 
@@ -44,7 +44,7 @@ reduced_data = total_sent_feed.filter(lambda x: x[1] != 'other')
 
       
         
-reduced_data_df = reduced_data.toDF().selectExpr("_1 as paid_for_by", "_2 as category", "_3 as neg", "_4 as neut", "_5 as pos", "_6 as sentiment", "_7 as month", "_8 as day", "_9 as year")
+reduced_data_df = reduced_data.toDF().selectExpr("_1 as paid_for_by", "_2 as category", "_3 as neg", "_4 as neut", "_5 as pos", "_6 as sentiment", "_7 as month", "_8 as day", "_9 as year", "_10 as target")
 reduced_data_df.show(10)
 total_sent_df.createOrReplaceTempView("sent")
 

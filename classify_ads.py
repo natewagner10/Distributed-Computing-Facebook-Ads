@@ -26,6 +26,10 @@ imm_wb = ["immigration", "muslim", "border", "entering", "country", "aliens", "a
           "sanctuary", "illegal", "immigrants", "assimilation", "border", "security",
           "citizenship", "visas", "visa", "daca", "refugee","refugees"]
 
+imm_wb = ["immigration", "muslim", "border", "entering", "country", "aliens", "alien", "deporting", "deported", "deport" 
+          "sanctuary", "illegal", "immigrants", "assimilation", "border", "security",
+          "citizenship", "visas", "visa", "daca", "refugee","refugees"]
+
 health_wb = [ 'existing', 'conditions', 'drug', 'price', 'drug', 'prices', 'drug', 'price', 'regulation', 
              'live', 'saving', 'drug', 'life', 'saving', 'drugs', 'healthcare', 'mental', 'health', 'obamacare',
              'medicaid', 'single', 'payer', 'healthcare', 'marijuna', 'safe', 'haven', 'va', 'privatization', 
@@ -33,9 +37,9 @@ health_wb = [ 'existing', 'conditions', 'drug', 'price', 'drug', 'prices', 'drug
              'prescription', 'drug', 'prescription', 'drugs', 'medicine', 'life-saving', 'drugs', 'mental',
              'healthcare', 'pharmaceutical', 'pharmaceuticals', 'health', 'treatment', 'affordable', 'care', 
              'patient', 'protection', 'medical', 'coverage', 'medical', 'treatment', 'health', 'services', 
-             'health', 'service', 'medical', 'insurance', 'health', 'coverage', 'va', 'healthcare', 'veteran',
+             'health', 'service', 'medical', 'insurance', 'health', 'coverage', 'healthcare', 'veteran',
              'healthcare', 'uninsured', 'medicare', 'health', 'provider', 'health', 'providers', 'out-of-pocket',
-             'costs', 'medical', 'bill', 'medical', 'bills', 'drug-pricing', 'drug-price', 'care']
+             'costs', 'medical', 'bill', 'medical', 'bills', 'drug pricing', 'drug price', 'care']
 
 econ_wb = ['globalization', 'international', 'relations', 'trade', 'finance', 'financial', 'crisis', 'bond', 'market', 
            'commodity', 'markets', 'financial', 'contagion', 'financial', 'market', 'securities', 'security', 'markets',
@@ -63,7 +67,7 @@ social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'same', 'sex', 
              'civil', 'unions', 'planned', 'parenthood', 'discrimination', 'gender', 'identity', 'beliefs', 
              'equality', 'statutory', 'domestic', 'violence', 'sex', 'spouse', 'contraception', 'birth', 'control',
              'abstinence', 'transgende', 'hormone', 'hormones', 'compete', 'biological', 'athlete', 'athletes',
-             'death', 'penalty', 'punishment', 'convict', 'convicted', 'prison', 'life', 'in', 'prison', 'women',
+             'death', 'penalty', 'punishment', 'convict', 'convicted', 'prison', 'women',
              'combat', 'sexual', 'assault', 'sexually', 'assaulted', 'combat', 'roles', 'confederate', 'flag',
              'historical', 'monuments', 'racism', 'separatism', 'assisted', 'suicide', 'euthanasia', 'terminal',
              'illness', 'diversity', 'workplace', 'space', 'spaces', 'trigger',
@@ -80,9 +84,9 @@ crim_wb = ['police', 'body', 'cameras', 'private', 'prisons', 'solitary', 'confi
            'criminal', 'voting', 'rights', 'mandatory', 'minimum', 'prison', 'sentences', 'drug', 'trafficking', 
            'penalties', 'prison', 'overcrowding', 'traffickers', 'trafficking', 'criminal']
 
-elec_wb = ['foreign', 'lobbying', 'electoral', 'college', 'campaign', 'finance', 'voter', 'fraud',
-           'right', 'of', 'foreigners', 'to', 'vote', 'lobbyists', 'minimum', 'voting', 'age', 
-           'candidate', 'transparency', 'criminal', 'politicians']
+elec_wb = ['foreign', 'lobbying', 'electoral', 'campaign', 'finance', 'voter', 'fraud',
+           'foreigners', 'lobbyists', 
+           'candidate', 'transparency', 'criminal', 'politicians', 'politician']
 
 sci_wb = ['vaccinations', 'vaccination', 'vaccinated', 'disease', 'diseases', 'gmo', 'nuclear', 
           'energy', 'space', 'exploration', 'engineered', 'foods', 'vaccinated', 'space', 'travel', 
@@ -104,9 +108,9 @@ educ_wb = ['student', 'loan', 'student', 'loans', 'free', 'college', 'student', 
 
 dom_wb = ['gun', 'control', 'arming', 'purchasing', 'gun', 'impeachment', 'impeach', 'impeached', 'impeaching',
           'armed', 'teacher', 'armed', 'teachers', 'gerrymandering', 'redraw', 'congressional', 'districts',
-          'redrawing', 'of', 'congressional', 'districts', 'net', 'neutrality', 'drug', 'policy', 'drug', 
+          'redrawing', 'congressional', 'districts', 'neutrality', 'drug', 'policy', 'drug', 
           'policies', 'term', 'limit', 'term', 'limits', 'nsa', 'domestic', 'surveillance', 'citizen', 'phone',
-          'calls', 'citizens', 'phone', 'calls', 'muslim', 'surveillance', 'no', 'fly', 'list', 'whistleblower',
+          'calls', 'citizens', 'phone', 'calls', 'muslim', 'surveillance', 'fly', 'list', 'whistleblower',
           'whistleblowers', 'gun', 'violence', 'gun', 'liability', 'gun', 'purchase', 'gun', 'purchasing', 
           'social', 'media', 'regulation', 'social', 'media', 'regulators', 'patriot', 'act', 'affirmative',
           'action', 'supreme', 'court', 'reform', 'eminent', 'domain', 'seize', 'private', 'property', 'social',

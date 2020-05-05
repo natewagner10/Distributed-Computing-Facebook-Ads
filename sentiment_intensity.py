@@ -22,7 +22,7 @@ def posOrneg(line):
 total_sent = data_w_imm.map(posOrneg)
 
 def filter_rdd(line):
-    return line[19], line[21], line[22], line[23], line[24], line[25], line[7].month, line[7].day, line[7].year, line[13]
+    return line[19], line[21], line[22], line[23], line[24], line[25], line[7].month, line[7].day, line[7].year, line[14]
 
 def createSome(line):
     if line[5] == "neutral":

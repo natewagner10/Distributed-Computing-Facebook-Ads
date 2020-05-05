@@ -27,13 +27,13 @@ def filter_rdd(line):
 def createSome(line):
     if line[5] == "neutral":
         if line[2] >= 0.15:
-            return line[0], line[1], line[2], line[3], line[4], "somewhat negative", line[6], line[7], line[8], line[13]
+            return line[0], line[1], line[2], line[3], line[4], "somewhat negative", line[6], line[7], line[8], line[9]
         elif line[4] >= 0.15:
-            return line[0], line[1], line[2], line[3], line[4], "somewhat positive", line[6], line[7], line[8], line[13]
+            return line[0], line[1], line[2], line[3], line[4], "somewhat positive", line[6], line[7], line[8], line[9]
         else:
-            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[13]
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9]
     else:
-        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[13]
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9]
         
 
 

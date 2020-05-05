@@ -39,7 +39,7 @@ def createSome(line):
 
 total_sent_feed = total_sent.map(filter_rdd).map(createSome)
 
-reduced_data = total_sent_feed.filter(lambda x: x[2] != 'other')
+reduced_data = total_sent_feed.filter(lambda x: x[1] != 'other')
 
 
       

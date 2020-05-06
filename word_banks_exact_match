@@ -1,0 +1,92 @@
+imm_wb = ["immigration", "aliens", "alien", "deporting", "deported", "deport", 
+           "immigrant", "immigrants", "assimilation",
+          "citizenship", "visas", "visa", "daca", "refugee","refugees"]
+
+health_wb = [ 'healthcare', 'obamacare',
+             'medicaid', 'va', 'privatization', 
+             'health', 'care', 'insurance', 'insurers', 'prescriptions',
+             'prescription', 'prescription', 'life-saving', 
+              'pharmaceutical', 'pharmaceuticals', 'affordable', 'care', 
+             'patient', 
+             'uninsured', 'medicare', 'out-of-pocket',
+             'drug pricing', 'drug price']
+
+econ_wb = ['globalization', 'finance', 'financial', 'bond', 
+           'commodity', 'markets', 'financial', 'contagion', 'financial', 'securities', 'security',
+            'stock', 'taxation', 'tax', 'taxes', 'taxes',
+           'employment', 'employment', 'unemployment', 'unemployment',
+           'wage', 'corporate', 'tax', 'capital', 
+           'wages', 'wage', 'union', 'nonunion', 
+           'accounting', 'business', 'economics', 'marketing', 'capitalism', 'socialism',
+           'transit', 'transit', 'transportation',
+           'stimulus', 'federal', 'reserve',
+           'jobs', 'tariffs', 'tariff', 'economy']
+
+envior_wb = ['green', 'climate', 'fracking', 'energy', 'drilling', 
+             'environmental', 'environment', 'EPA', 'epa', 'environmental', 'pollution', 
+             'warming', 'environmental', 'sustainability', 'pollution', 
+             'energy', 'overpopulation', 'deforestation', 'environmental', 'degradation',
+             'pollution', 'carbon', 'biodiversity', 'genetic', 'modification', 'ozone', 
+             'depletion', 'mining', 'depletion', 
+             'radioactive', 'radioactive', 'nuclear', 'acid',
+             'endangered', 'pollution', 'pollution', 
+             'litter', 'littering', 'landfill']
+
+social_wb = ['LGBT', 'adoption', 'lesbian', 'gay', 'homosexual', 'marriage', 'straight', 'prolife',
+             'pro', 'choice', 'rape', 'abortion', 'sex', 'education', 'birth', 'marriage', 'marriages',
+             'planned', 'parenthood', 'gender', 'identity', 
+             'equality', 'statutory', 'violence', 'sex', 'contraception', 
+             'abstinence', 'transgende', 'hormone', 'hormones', 'biological', 'athlete', 'athletes',
+             'death', 'penalty', 'punishment',
+             'combat', 'sexual', 'assault', 'sexually', 'assaulted', 'combat', 'confederate',
+             'monuments', 'racism', 'separatism', 'suicide', 'euthanasia', 'terminal',
+             'diversity', 'warning', 'niqab', 'hijab']
+
+foreign_wb = ['united', 'nations', 'iran', 'foreign', 'israel',
+              'boycott', 'soleimani', 'torture', 'nato', 'israe', 'syrian', 'refugees',
+              'foreign', 'yemen', 'drones', 'korean', 'terrorism',
+              'afghanistan', 'isis', 'Hong', 'Kong', 'extradition',
+              'isis', 'ukraine', 'nsa', 'cuba', 'russian', 'airstrikes', 'syria',
+              'india', 'jerusalem']
+                
+crim_wb = ['police', 'body', 'cameras', 'prisons', 'solitary', 'confinement', 'juveniles',
+           'criminal', 'prison', 'sentences', 'trafficking', 
+           'penalties', 'prison', 'overcrowding', 'traffickers', 'trafficking', 'criminal']
+
+elec_wb = ['foreign', 'lobbying', 'electoral', 'campaign', 'finance', 'voter', 'fraud',
+           'foreigners', 'lobbyists', 
+           'candidate', 'transparency', 'criminal', 'politicians', 'politician']
+
+sci_wb = ['vaccinations', 'vaccination', 'vaccinated', 'disease', 'diseases', 'gmo', 'nuclear', 
+          'space', 'exploration', 'vaccinated', 'space', 
+          'vaccines', 'food', 'crop', 'crops',
+          'foods', 'breeding', 'genetic', 
+          'biotechnology', 'biotech', 'crop', 'crops', 'dna', 
+          'biogenetic', 'gene', 'genes', 'epidemic', 'virus', 'renewable', 'nuclear',
+          'geothermal', 'wind', 'nuclear', 'power',
+          'plants', 'solar', 'hydroelectricity', 'alternative',
+          'nasa', 'aerospace', 'aeronautics']
+
+educ_wb = ['student', 'loan', 'student', 'loans', 'college', 'debt', 'tuition', 
+           'preschool', 'charter', 'school', 'charter', 'schools', 'school', 'truancy',
+           'students', 'education', 'colleges', 'university', 'universities', 'scholarship', 'scholarships',
+           'curriculum', 'educational',  'teacher', 'teachers', 
+           'professors', 'school', 'schools', 'kindergarten', 'academic', 'homeschooling', 'homeschool', 
+           'academics', 'literacy', 'schooling', 'classroom', 'classrooms', 'postgraduate', 'undergraduate',
+           'zoning', 'standardized']
+
+dom_wb = ['gun', 'impeachment', 'impeach', 'impeached', 'impeaching',
+          'gerrymandering', 'redraw', 'congressional', 'districts',
+          'redrawing', 'neutrality',  
+          'policies', 'term', 'nsa',
+          'whistleblower',
+          'whistleblowers', 'gun', 'guns',
+          'affirmative',
+          'supreme', 'court', 'social',
+          'advertising', 'snowden',
+          'impeach', 'drug',
+          'weapon', 'weapons', 'redistricting', 'medicinal', 'benefits', 'rehabilitation', 'addiction',
+          'prevention', 'nsa', 'metadata',
+          'surveillance', 'ammunition', 
+          'firearm', 'firearms', 'misinformation', 'surveillance', 'warrant',
+          'wiretap', 'supreme', 'retirement', 'income']

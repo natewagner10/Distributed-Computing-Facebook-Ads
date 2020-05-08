@@ -487,5 +487,51 @@ lr = LogisticRegression(featuresCol = 'features', labelCol = 'category', maxIter
 lrModel = lr.fit(train)
 
 
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+
+# score the model on test data.
+predictions = lrModel.transform(test)
+predictions = predictions.selectExpr("message as message", "category as label", "words as words",
+                                     "rawFeatures as rawFeatures", "features as features", 
+                                     "rawPrediction as rawPrediction", "probability as probability", 
+                                     "prediction as prediction")
+
+# obtain evaluator.
+evaluator = MulticlassClassificationEvaluator(metricName="accuracy")
+
+# compute the classification error on test data.
+accuracy = evaluator.evaluate(predictions)
+print("Test Error = %g" % (1.0 - accuracy))
+
+
+
+
+
+
+#### Naive Bayes ######
+
+from pyspark.ml.classification import NaiveBayes
+
+nb = NaiveBayes(smoothing=1.0, modelType="multinomial", featuresCol = 'features', labelCol = 'category')
+
+model = nb.fit(train)
+
+predictions = model.transform(test)
+
+predictions = predictions.selectExpr("message as message", "category as label", "words as words",
+                                     "rawFeatures as rawFeatures", "features as features", 
+                                     "rawPrediction as rawPrediction", "probability as probability", 
+                                     "prediction as prediction")
+
+# obtain evaluator.
+evaluator = MulticlassClassificationEvaluator(metricName="accuracy")
+
+# compute the classification error on test data.
+accuracy = evaluator.evaluate(predictions)
+print("Test Error = %g" % (1.0 - accuracy))
+
+
+
+
 
 

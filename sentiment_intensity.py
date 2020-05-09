@@ -54,4 +54,28 @@ query = sqlContext.sql("select paid_for_by, sentiment, count(sentiment) cnt from
 
 
 
+train_x_new = []
+fixed = 0
+fixed_vec = []
+cnt = 1
+for i in train_x:
+    try:
+        for x in i:       
+            x = x.replace("(", "")
+            x = x.replace(")", "")
+            x = x.replace("]", "")
+            x = x.replace("[", "")
+            if cnt == 1:
+                print(x)
+                fixed = float(x)
+                cnt += 1
+            else:
+                fixed_vec.append(float(x))
+        train_x_new = train_x_new.append((fixed, fixed_vec))
+        print(fixed, fixed_vec)
+        fixed = 0
+        fixed_vec = []
+    except:
+        continue
+
 

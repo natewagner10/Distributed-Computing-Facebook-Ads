@@ -191,7 +191,46 @@ def removeStopWords(line):
     except:
         return line[0], line[1], line[2], line[3], line[4], "didnt work", line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19]  
 
-messages_clean = target.map(removeStopWords)
+      
+      
+def cleanTarget(line):
+    #try:        
+    if line[13] != 'NA':
+        tar = line[13]
+        tar = tar.replace("]", '')
+        tar = tar.replace("[", '')
+        tar = tar.replace("target", '')
+        tar = tar.replace("segment", '')
+        tar = tar.replace(":", '')
+        tar = tar.replace('"', '')
+        tar = tar.replace('}', '')
+        tar = tar.replace('{', '')
+        tar = tar.replace(',', '')
+        tar = tar.replace(')', '')
+        tar = tar.replace('(', '')
+        #tar = tar.split(' ')
+        target_words = []
+        tar = tar.split(' ')
+        targets = ['women', 'female', 'male', 'men', 'white', 'african', 'liberal', 'conservative', 'females', 'males']
+        for i in tar:
+            if i != '' and i.lower() in targets:
+                target_words.append(i)
+            else:
+                continue
+        if target_words == []:
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], 'NA', line[14], line[15], line[16], line[17], line[18], line[19]
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], target_words, line[14], line[15], line[16], line[17], line[18], line[19]
+    else:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], 'NA', line[14], line[15], line[16], line[17], line[18], line[19]
+#except:
+#        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], 'NA', line[14], line[15], line[16], line[17], line[18], line[19]
+      
+      
+target_2 = target.map(cleanTarget)
+      
+      
+      
+messages_clean = target_2.map(removeStopWords)
 
 
 imm_wb = ["immigration", "aliens", "alien", "deporting", "deported", "deport", 
@@ -351,6 +390,48 @@ data_w_imm = messages_clean.map(classify_immigrant)
 
 
 
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+sid = SentimentIntensityAnalyzer()
+
+
+def posOrneg(line):
+    sentiment = sid.polarity_scores(line[4])
+    neg = sentiment['neg']
+    neu = sentiment['neu']
+    pos = sentiment['pos']
+    if neg > neu and neg > pos:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], line[21], neg, neu, pos, "negative", sentiment['compound']
+    if neu > neg and neu > pos:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], line[21],  neg, neu, pos, "neutral", sentiment['compound']
+    if pos > neg and pos > neu:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], line[21],  neg, neu, pos, "positive", sentiment['compound']
+    else:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20], line[21],  neg, neu, pos, "neutral", sentiment['compound']
+    
+
+
+total_sent = data_w_imm.map(posOrneg)
+
+def filter_rdd(line):
+    return line[4], line[5], line[19], line[21], line[22], line[23], line[24], line[25], line[7].month, line[7].day, line[7].year, line[14]
+
+def createSome(line):
+    if line[7] == "neutral":
+        if line[4] >= 0.15:
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], "somewhat negative", line[8], line[9], line[10], line[11]
+        elif line[6] >= 0.15:
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], "somewhat positive", line[8], line[9], line[10], line[11]
+        else:
+            return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
+    else:
+        return line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
+        
+
+
+total_sent_feed = total_sent.map(filter_rdd).map(createSome)
+
+
 
 
 
@@ -370,7 +451,7 @@ from sklearn import model_selection, naive_bayes, svm
 from sklearn.metrics import accuracy_score
 
 def cleanWords(line):
-    message = line[4].lower()
+    message = line[0].lower()
     message = word_tokenize(message)
     
     
@@ -389,7 +470,7 @@ def cleanWords(line):
             Final_words.append(word_Final)
     # The final processed set of words for each iteration will be stored in 'text_final'
     fw = Final_words
-    return (fw, line[21])
+    return line[0], fw, line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
 
 
 
@@ -407,7 +488,7 @@ def cleaner(line):
     
 
     
-ads_clean_words = data_w_imm.map(cleanWords)#.map(cleaner)
+ads_clean_words = total_sent_feed.map(cleanWords)#.map(cleaner)
 #soc_econ = ads_clean_words.filter(lambda x: x[1] == 'immigration' or x[1] == 'healthcare')
 
 
@@ -422,47 +503,51 @@ ads_clean_words = data_w_imm.map(cleanWords)#.map(cleaner)
 #tfidf = idf.transform(tf)
 
 
-
-
-ads_clean_words = ads_clean_words.filter(lambda x: x[1] != 'other')
-ad_words_df = ads_clean_words.toDF().selectExpr("_1 as message", "_2 as category")
+#ads_clean_words = total_sent_feed.map(cleanWords)
+#ads_clean_words_other = ads_clean_words.filter(lambda x: x[3] == 'other')
+ads_clean_words = ads_clean_words.filter(lambda x: x[3] != 'other')
+#ad_words_df = ads_clean_words.toDF().selectExpr("_1 as message", "_2 as category")
 
 #["immigration: 1", "healthcare: 2", "economic: 3", "environment: 4", "social: 5", "foreign: 6", "criminal: 7", "electoral: 8", "science: 9", "education:10", "domestic: 11"]
 
 def prepareData(line):
     words = ''
-    for x in line[0]:
+    for x in line[1]:
         words = words + str(x) + ' '
-    cat = line[1]
+    cat = line[3]
     if cat == "immigration":
-        return words, 1
+        return words, line[2], 1, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "healthcare":
-        return words, 2
+        return words, line[2], 2, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "economic":
-        return words, 3
+        return words, line[2], 3, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "environment":
-        return words, 4
+        return words, line[2], 4, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "social":
-        return words, 5
+        return words, line[2], 5, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "foreign":
-        return words, 6
+        return words, line[2], 6, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "criminal":
-        return words, 7
+        return words, line[2], 7, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "electoral":
-        return words, 8
+        return words, line[2], 8, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "science":
-        return words, 9
+        return words, line[2], 9, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "education":
-        return words, 10
+        return words, line[2], 10, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
     if cat == "domestic":
-        return words, 11
+        return words, line[2], 11, line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
+    if cat == "other":
+        return words, line[2], "other", line[4], line[5], line[6], line[7], line[8], line[9], line[10], line[11]
 
     
-
+#preped_words = ads_clean_words_other.map(prepareData)
 preped_words = ads_clean_words.map(prepareData)
 preped_words.take(1)
 
-preped_words_df = preped_words.toDF().selectExpr("_1 as message", "_2 as category")
+preped_words_df = preped_words.toDF().selectExpr("_1 as message", "_2 as paid_for_by", "_3 as label", "_4 as neg",
+                                                "_5 as neu", "_6 as pos", "_7 as sentiment", "_8 as day",
+                                                "_9 as month", "_10 as year", "_11 as target")
 
 from pyspark.sql.types import StringType
 changedTypedf = preped_words_df.withColumn("message", preped_words_df["message"].cast(StringType()))
@@ -478,12 +563,14 @@ idf = IDF(inputCol="rawFeatures", outputCol="features")
 idfModel = idf.fit(featurizedData)
 rescaledData = idfModel.transform(featurizedData)
 
+### To classify the "others"
+#other_predictions = lrModel.transform(rescaledData)
 
 train, test = rescaledData.randomSplit([0.7, 0.3], seed = 2018)
 
 from pyspark.ml.classification import LogisticRegression
 
-lr = LogisticRegression(featuresCol = 'features', labelCol = 'category', maxIter=10)
+lr = LogisticRegression(featuresCol = 'features', labelCol = 'label', maxIter=20)
 lrModel = lr.fit(train)
 
 
@@ -503,7 +590,7 @@ evaluator = MulticlassClassificationEvaluator(metricName="accuracy")
 accuracy = evaluator.evaluate(predictions)
 print("Test Error = %g" % (1.0 - accuracy))
 
-
+#predictions.toPandas().to_csv('preds_test.csv')
 
 
 
